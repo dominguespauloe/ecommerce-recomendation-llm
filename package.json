@@ -1,0 +1,30 @@
+{
+    "name": "ecommerce-recomendations-with-ml",
+    "version": "1.0.0",
+    "description": "An e-commerce recommendation system with TensorFlow.js",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "browser-sync start --server --watch --files \"index.html, data/*.json, js/*.js\" --port 3000",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "ecommerce",
+        "tensorflow",
+        "recommendation",
+        "javascript"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "browser-sync": "^3.0.4"
+    },
+    "dependencies": {
+        "@chroma-core/default-embed": "^0.1.9",
+        "@tensorflow/tfjs": "^4.22.0",
+        "@tensorflow/tfjs-vis": "^1.5.1",
+        "@xenova/transformers": "^2.17.2",
+        "chromadb": "^3.5.0",
+        "express": "^5.2.1"
+    }
+}

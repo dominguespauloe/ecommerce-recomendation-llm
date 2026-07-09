@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Recomendação Semântica (LLM)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f7f6; color: #333; display: flex; justify-content: center; }
+        .container { max-width: 1000px; width: 100%; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .control-panel { display: flex; flex-direction: column; gap: 15px; background: #e2e8f0; padding: 20px; border-radius: 6px; margin-bottom: 25px; }
+        .row-controls { display: flex; gap: 15px; align-items: flex-end; width: 100%; }
+        .control-group { flex: 1; }
+        label { font-weight: bold; display: block; margin-bottom: 8px; color: #4a5568; }
+        select, button, input[type="range"] { width: 100%; padding: 12px; font-size: 15px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
+        button { color: white; border: none; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .btn-buy { background-color: #28a745; } .btn-buy:hover { background-color: #218838; }
+        .btn-db { background-color: #4c51bf; } .btn-db:hover { background-color: #434190; }
+        button:disabled { background-color: #a0aec0 !important; cursor: not-allowed; }
+        h2 { border-bottom: 2px solid #ddd; padding-bottom: 8px; color: #4a5568; margin-top: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .card { background: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 5px solid #ccc; margin-bottom: 12px; color: #333; }
+        .purchase-card { border-left-color: #28a745; } .recom-card { border-left-color: #007bff; }
+        .neural-card { border-left-color: #9f7aea; background: #faf5ff; }
+        .badge { display: inline-block; background: #edf2f7; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-right: 5px; }
+        .status-badge { font-weight: bold; color: #2b6cb0; background: #ebf8ff; padding: 5px 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>Painel de Recomendação Semântica (LLM)</h1>
+            <span class="status-badge">🤖 LLM Ativa: all-MiniLM-L6-v2</span>
+        </div>
+        
+        <div class="control-panel">
+            <div class="row-controls" style="border-bottom: 1px solid #cbd5e0; padding-bottom: 15px; margin-bottom: 5px;">
+                <div class="control-group" style="flex: 2;">
+                    <label for="priceWeightSlider">⚙️ Relevância Dinâmica do Preço nas Recomendações:</label>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="range" id="priceWeightSlider" min="0" max="1" step="0.1" value="0.4" style="flex: 1; cursor: pointer;">
+                        <span id="weightValue" style="font-weight: bold; color: #4c51bf; min-width: 50px;">40%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-controls">
+                <div class="control-group">
+                    <label for="userSelect">1. Selecione o Cliente:</label>
+                    <select id="userSelect"><option value="">-- Escolha um cliente --</option></select>
+                </div>
+                <div class="control-group">
+                    <label for="productSelect">2. Simular Compra:</label>
+                    <select id="productSelect" disabled><option value="">-- Escolha um produto --</option></select>
+                </div>
+                <div class="control-group" style="flex: 0.4;">
+                    <button id="buyBtn" class="btn-buy" disabled>Comprar</button>
+                </div>
+                <div class="control-group" style="flex: 1;">
+                    <button id="dbBtn" class="btn-db" disabled>💾 Sincronizar ChromaDB</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div>
+                <h2>Histórico do Cliente</h2>
+                <div id="purchasesList">Nenhum cliente selecionado.</div>
+            </div>
+            <div>
+                <h2>Sugestões do Catálogo no ChromaDB</h2>
+                <div id="recommendationsList">Aguardando definição do vetor de perfil...</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
